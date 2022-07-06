@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -8,8 +8,10 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  let navigate = useNavigate()
 
   const signupUser = (email, password, password_confirmation) => {
     console.log("signup function email", email);
@@ -58,7 +60,8 @@ const AuthProvider = ({ children }) => {
         console.log("res from login", response);
         if (response.data.logged_in) {
             setCurrentUser(response.data.user)
-        }
+            navigate('/')
+          }
       })
       .catch((error) => {
         console.log("login errors", error);
@@ -67,7 +70,7 @@ const AuthProvider = ({ children }) => {
 
   const logoutUser = () => {
     setCurrentUser(null);
-    Navigate('/')
+    navigate('/')
   }
 
   const value = {

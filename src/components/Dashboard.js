@@ -22,7 +22,7 @@ const Dashboard = () => {
     <div>
       <h1>Profile</h1>
       {error && <p>{error}</p>}
-        <p>{currentUser}</p>
+        <p>{currentUser.email}</p>
 
       <button onClick={handleLogout}>Logout</button>
         
