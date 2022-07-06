@@ -2,39 +2,31 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const password_confirmationRef = useRef();
 
   const [error, setError] = useState("");
 
-  const { signupUser } = useAuth();
+  const { loginUser } = useAuth();
+
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (passwordRef.current.value !== password_confirmationRef.current.value) {
-      return alert("Passwords do not match");
-    }
-
     try {
       setError("");
-      await signupUser(
-        emailRef.current.value,
-        passwordRef.current.value,
-        password_confirmationRef.current.value
-      );
+      await loginUser(emailRef.current.value, passwordRef.current.value);
       navigate("/");
     } catch {
-      setError("Error signing up");
+      setError("Error logging in");
     }
   };
 
   return (
     <div className="create-user">
       <form onSubmit={handleSubmit}>
-        <h3 className="top-label">Sign Up</h3>
+        <h3 className="top-label">Login</h3>
 
         <div className="">
           <input
@@ -58,23 +50,12 @@ const Signup = () => {
           />
         </div>
 
-        <div className="">
-          <input
-            type="password"
-            name="password_confirmation"
-            placeholder="Password Confirmation"
-            ref={password_confirmationRef}
-            className="search"
-            required
-          />
-        </div>
-
         <button type="submit" className="button-27">
-          Sign up
+          Login
         </button>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

@@ -39,10 +39,37 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const loginUser = (email, password) => {
+    axios
+      .post(
+        'https://netflix-movie-matcher.herokuapp.com/sessions',
+        {
+          user: {
+            email: email,
+            password: password,
+          }
+        },
+        {
+          headers: { 'Content-Type': 'application/json'}, 
+          withCredentials: true
+        })
+      .then((response) => {
+        console.log("res from login", response);
+        if (response.data.logged_in) {
+            setCurrentUser(response.data.user)
+        }
+      })
+      .catch((error) => {
+        console.log("login errors", error);
+      });
+  }
+
+
   const value = {
     currentUser,
     signupUser,
     setCurrentUser,
+    loginUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
