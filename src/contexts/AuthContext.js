@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
       )
       .then((response) => {
         console.log("response from signup", response);
-        //if status is created, set current user to response.data.user
+        //if status is created, set current user to response.data.user?
         if (response.data.status === 'created') {
           setCurrentUser(response.data.user);
         }
@@ -64,12 +65,17 @@ const AuthProvider = ({ children }) => {
       });
   }
 
+  const logoutUser = () => {
+    setCurrentUser(null);
+    Navigate('/')
+  }
 
   const value = {
     currentUser,
     signupUser,
     setCurrentUser,
-    loginUser
+    loginUser,
+    logoutUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
