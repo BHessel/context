@@ -18,6 +18,8 @@ const Dashboard = () => {
         }
     }
 
+    console.log('currentUser from Dashboard', currentUser);
+
   return (
     <div>
       <h1>Profile</h1>

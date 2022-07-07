@@ -8,6 +8,7 @@ const Signup = () => {
   const password_confirmationRef = useRef();
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { signupUser } = useAuth();
   let navigate = useNavigate();
@@ -20,15 +21,16 @@ const Signup = () => {
 
     try {
       setError("");
+      setLoading(true)
       await signupUser(
         emailRef.current.value,
         passwordRef.current.value,
         password_confirmationRef.current.value
       );
-    //   navigate("/");
     } catch {
       setError("Error signing up");
     }
+    setLoading(false)
   };
 
   return (

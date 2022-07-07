@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Login from "../components/Login";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useLocalStorage("user", null);
   let navigate = useNavigate();
 
   const signupUser = (email, password, password_confirmation) => {
@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
       .then((response) => {
         console.log("logout response", response);
         // return response;
-        navigate("/login");
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         console.log("logout error?", error);
