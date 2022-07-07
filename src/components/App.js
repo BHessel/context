@@ -5,6 +5,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import VideoContainer from "./VideoContainer";
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
         <AuthProvider>
           <Routes>
             <Route
-              exact path="/"
+              exact
+              path="/"
               element={
                 <PrivateRoute>
                   <Dashboard />
@@ -22,6 +24,14 @@ const App = () => {
             />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/VideoContainer"
+              element={
+                <PrivateRoute>
+                  <VideoContainer />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </AuthProvider>
       </Router>
