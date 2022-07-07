@@ -11,7 +11,7 @@ const Dashboard = () => {
         setError("");
         try {
             await logoutUser();
-            navigate('/');
+            navigate('/login');
         }
         catch {
             setError("Error logging out");

@@ -25,7 +25,7 @@ const Signup = () => {
         passwordRef.current.value,
         password_confirmationRef.current.value
       );
-      navigate("/");
+    //   navigate("/");
     } catch {
       setError("Error signing up");
     }
